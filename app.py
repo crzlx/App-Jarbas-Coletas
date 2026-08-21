@@ -130,13 +130,16 @@ def painel_monitoramento_jarbas():
         
         with aba_historico:
             with st.expander("🔍 Filtro Complementar (Opcional)", expanded=False):
-                cf1, cf2, cf3 = st.columns(3)
+                # Alterado para 4 colunas para acomodar os novos filtros de data
+                cf1, cf2, cf3, cf4 = st.columns(4)
                 with cf1:
                     f_nota = st.text_input("Filtrar por Nota (Nº)", autocomplete="off")
                 with cf2:
                     f_cidade = st.text_input("Filtrar por Cidade", autocomplete="off")
                 with cf3:
-                    f_hora = st.text_input("Filtrar por Hora (Ex: 14:30)", autocomplete="off")
+                    f_data_sol = st.text_input("Data de Solicitação", placeholder="Ex: 17/08/2026", autocomplete="off")
+                with cf4:
+                    f_data_col = st.text_input("Data da Coleta", placeholder="Ex: 18/08/2026", autocomplete="off")
             
             if historico:
                 historico.reverse()
@@ -146,8 +149,10 @@ def painel_monitoramento_jarbas():
                     historico_filtrado = [h for h in historico_filtrado if f_nota.lower() in h["Nota (Nº)"].lower()]
                 if f_cidade:
                     historico_filtrado = [h for h in historico_filtrado if f_cidade.lower() in h["Cidade Destino"].lower()]
-                if f_hora:
-                    historico_filtrado = [h for h in historico_filtrado if f_hora in h["Hora Registro"]]
+                if f_data_sol:
+                    historico_filtrado = [h for h in historico_filtrado if f_data_sol in h["Data Solicitação"]]
+                if f_data_col:
+                    historico_filtrado = [h for h in historico_filtrado if f_data_col in h["Data da Coleta"]]
 
                 if historico_filtrado:
                     st.info(f"**{len(historico_filtrado)}** coletas encontradas.")
