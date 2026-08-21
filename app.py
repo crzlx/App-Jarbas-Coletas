@@ -67,10 +67,10 @@ def obter_dados_jarbas():
                 })
             else: 
                 dt_col = parse_data(data_col_str)
-                tempo_coleta = "🟢 Hoje"
+                tempo_coleta = "🟢 No mesmo dia"
                 if dt_sol and dt_col:
                     dias = (dt_col - dt_sol).days
-                    if dias <= 0: tempo_coleta = "🟢 Hoje"
+                    if dias <= 0: tempo_coleta = "🟢 No mesmo dia"
                     elif dias == 1: tempo_coleta = "🟡 1 dia de atraso"
                     else: tempo_coleta = f"🔴 {dias} dias de atraso"
                     
