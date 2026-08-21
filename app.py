@@ -49,13 +49,12 @@ def obter_dados_jarbas():
             dt_sol = parse_data(data_sol_str)
             
             if data_col_str == "": 
-                atraso_str = "Hoje"
+                atraso_str = "🟢 Hoje"
                 if dt_sol:
                     dias = (hoje_dt - dt_sol).days
-                    if dias == 0: atraso_str = "🟢 Hoje"
-                    elif dias == 1: atraso_str = "🟡 1 dia"
-                    elif dias > 1: atraso_str = f"🔴 {dias} dias"
-                    else: atraso_str = "🟢 Hoje"
+                    if dias <= 0: atraso_str = "🟢 Hoje"
+                    elif dias == 1: atraso_str = "🟡 1 dia de atraso"
+                    else: atraso_str = f"🔴 {dias} dias de atraso"
                 
                 pendentes.append({
                     "Nota (Nº)": nota,
@@ -68,13 +67,12 @@ def obter_dados_jarbas():
                 })
             else: 
                 dt_col = parse_data(data_col_str)
-                tempo_coleta = "-"
+                tempo_coleta = "🟢 Hoje"
                 if dt_sol and dt_col:
                     dias = (dt_col - dt_sol).days
-                    if dias == 0: tempo_coleta = "No mesmo dia"
-                    elif dias == 1: tempo_coleta = "1 dia"
-                    elif dias > 1: tempo_coleta = f"{dias} dias"
-                    else: tempo_coleta = "No mesmo dia"
+                    if dias <= 0: tempo_coleta = "🟢 Hoje"
+                    elif dias == 1: tempo_coleta = "🟡 1 dia de atraso"
+                    else: tempo_coleta = f"🔴 {dias} dias de atraso"
                     
                 historico.append({
                     "Nota (Nº)": nota,
