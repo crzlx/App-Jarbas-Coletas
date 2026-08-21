@@ -81,7 +81,7 @@ def obter_dados_jarbas():
                     "Data Solicitação": data_sol_str,
                     "Hora Registro": hora_sol,
                     "Data da Coleta": data_col_str,
-                    "Hora da Baixa": hora_col,
+                    "Hora da Coleta": hora_col,
                     "Tempo Demorado": tempo_coleta,
                     "Cidade Destino": cidade
                 })
