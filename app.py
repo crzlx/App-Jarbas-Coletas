@@ -48,7 +48,8 @@ with col2:
 
 st.markdown("---")
 
-with st.spinner("Conectando ao servidor da filial..."):
+@st.fragment(run_every=30)
+def painel_monitoramento_jarbas():
     try:
         pendentes = obter_dados_jarbas()
         
@@ -61,3 +62,5 @@ with st.spinner("Conectando ao servidor da filial..."):
             
     except Exception as e:
         st.error(f"Erro ao conectar com o banco de dados: {e}")
+
+painel_monitoramento_jarbas()
