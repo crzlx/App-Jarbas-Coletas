@@ -45,6 +45,7 @@ def obter_dados_jarbas():
             prioridade = l[6].strip() if len(l)>6 else "Normal"
             cidade = l[8].strip() if len(l)>8 else "Não informada"
             hora_sol = l[9].strip() if len(l)>9 else "-"
+            hora_col = l[10].strip() if len(l)>10 else "-"
             
             dt_sol = parse_data(data_sol_str)
             
@@ -80,6 +81,7 @@ def obter_dados_jarbas():
                     "Data Solicitação": data_sol_str,
                     "Hora Registro": hora_sol,
                     "Data da Coleta": data_col_str,
+                    "Hora da Baixa": hora_col,
                     "Tempo Demorado": tempo_coleta,
                     "Cidade Destino": cidade
                 })
