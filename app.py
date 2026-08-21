@@ -112,11 +112,32 @@ def painel_monitoramento_jarbas():
                 st.success("🎉 Nenhuma carga pendente no momento. Expedição limpa!")
         
         with aba_historico:
+            with st.expander("🔍 Filtro Complementar (Opcional)", expanded=False):
+                cf1, cf2, cf3 = st.columns(3)
+                with cf1:
+                    f_nota = st.text_input("Filtrar por Nota (Nº)", autocomplete="off")
+                with cf2:
+                    f_cidade = st.text_input("Filtrar por Cidade", autocomplete="off")
+                with cf3:
+                    f_hora = st.text_input("Filtrar por Hora (Ex: 14:30)", autocomplete="off")
+            
             if historico:
                 historico.reverse()
-                st.info(f"**{len(historico)}** coletas já foram finalizadas pelo sistema.")
-                df_h = pd.DataFrame(historico)
-                st.dataframe(df_h, use_container_width=True, hide_index=True)
+                historico_filtrado = historico
+                
+                if f_nota:
+                    historico_filtrado = [h for h in historico_filtrado if f_nota.lower() in h["Nota (Nº)"].lower()]
+                if f_cidade:
+                    historico_filtrado = [h for h in historico_filtrado if f_cidade.lower() in h["Cidade Destino"].lower()]
+                if f_hora:
+                    historico_filtrado = [h for h in historico_filtrado if f_hora in h["Hora Registro"]]
+
+                if historico_filtrado:
+                    st.info(f"**{len(historico_filtrado)}** coletas encontradas.")
+                    df_h = pd.DataFrame(historico_filtrado)
+                    st.dataframe(df_h, use_container_width=True, hide_index=True)
+                else:
+                    st.warning("⚠️ Nenhum histórico encontrado com esses filtros.")
             else:
                 st.write("Nenhum histórico de coleta encontrado.")
             
