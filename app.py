@@ -105,21 +105,21 @@ def painel_monitoramento_jarbas():
         
         with aba_pendentes:
             if pendentes:
-                # 1. Calcula a soma total dos volumes (ignorando se tiver algum texto digitado sem querer)
+                # Calcula a soma total dos volumes
                 total_volumes = sum(int(p["QTD Volumes"]) for p in pendentes if str(p["QTD Volumes"]).strip().isdigit())
                 
-                # 2. Divide a tela: O aviso fica na esquerda e o contador na direita
+                # Divide a tela: O aviso fica na esquerda e o contador na direita
                 cabecalho_esq, cabecalho_dir = st.columns([3, 1])
                 
                 with cabecalho_esq:
                     st.warning(f"Temos **{len(pendentes)}** nota(s) aguardando coleta neste momento.")
                 
                 with cabecalho_dir:
-                    # 3. Desenha a caixinha minimalista no canto direito
+                    # Design adaptável: usa as cores do tema atual do usuário (Claro ou Escuro)
                     st.markdown(f"""
-                    <div style="background-color: #ffffff; border: 1px solid #e6e6e6; border-radius: 12px; padding: 10px 18px; text-align: right; box-shadow: 0 4px 6px rgba(0,0,0,0.04);">
-                        <div style="font-size: 11px; color: #8e8e93; text-transform: uppercase; font-weight: 700; margin-bottom: -4px; letter-spacing: 0.5px;">Total a Coletar</div>
-                        <div style="font-size: 28px; font-weight: 800; color: #1c1c1e;">{total_volumes} <span style="font-size: 14px; color: #aeaeb2; font-weight: 500;">vol.</span></div>
+                    <div style="background-color: var(--secondary-background-color); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 12px; padding: 10px 18px; text-align: right;">
+                        <div style="font-size: 11px; color: var(--text-color); opacity: 0.7; text-transform: uppercase; font-weight: 700; margin-bottom: -4px; letter-spacing: 0.5px;">Total a Coletar</div>
+                        <div style="font-size: 28px; font-weight: 800; color: var(--text-color);">{total_volumes} <span style="font-size: 14px; opacity: 0.6; font-weight: 500;">vol.</span></div>
                     </div>
                     """, unsafe_allow_html=True)
                 
